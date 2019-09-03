@@ -64,10 +64,13 @@
 #		  requested by VMware users (new, experimental)
 #   XL_SECS=n	  Support for extra large (non-standard) floppies.
 
-CONFIG=-DBDATA -DDSECS=3 -DEVMS -DIGNORECASE -DLVM -DNOKEYBOARD -DONE_SHOT \
-   -DPASS160 -DREISERFS -DREWRITE_TABLE -DSOLO_CHAIN -DVERSION -DVIRTUAL \
-   -DMDPRAID -DDEVMAPPER
-   
+#CONFIG=-DBDATA -DDSECS=3 -DEVMS -DIGNORECASE -DLVM -DNOKEYBOARD -DONE_SHOT \
+#   -DPASS160 -DREISERFS -DREWRITE_TABLE -DSOLO_CHAIN -DVERSION -DVIRTUAL \
+#   -DMDPRAID -DDEVMAPPER
+
+CONFIG=-DBDATA -DDSECS=3 -DIGNORECASE -DNOKEYBOARD -DONE_SHOT \
+   -DPASS160 -DREWRITE_TABLE -DSOLO_CHAIN -DVERSION \
+   -DMDPRAID
 
 # set the following if you wish LILO.COM to be installed
 DOS_DIR=/dosC/boot
@@ -84,7 +87,7 @@ MAN_DIR=`if [ -f /usr/bin/manpath ]; then \
 
 # set the compiler optimization level
 
-OPT=-Os
+OPT=-Os -s
 
 ### End of configuration variables
 #
@@ -102,21 +105,22 @@ PCONFIG=$(KVER) $(HDM) $(LILO) `( if [ -r $$ROOT/etc/lilo.defines ]; then \
   sed 's/-D/-DLCF_/g'`
 LILO=-DLILO=0xbb920890
 KVER=`if [ -f /usr/include/linux/version.h ]; then echo -DHAS_VERSION_H; fi`
-HDM=`if [ -f /usr/include/libdevmapper.h ]; then echo -DHAS_LIBDEVMAPPER_H; fi`
-DEVMAPPER=`if [ -f /usr/include/libdevmapper.h ]; then echo "-ldevmapper"; fi`
+#HDM=`if [ -f /usr/include/libdevmapper.h ]; then echo -DHAS_LIBDEVMAPPER_H; fi`
+#DEVMAPPER=`if [ -f /usr/include/libdevmapper.h ]; then echo "-ldevmapper"; fi`
 
 TMP=_TmP_
 
 
 SHELL=/bin/sh
 CC=gcc
+STRIP=strip
 CPP=$(CC) -E
 AS86=as86 -0 -a
 LD86=ld86 -0
 NASM=nasm
 G=`cat foo1 foo2 | grep version | cut -d " " -f 3`
 
-CFLAGS=$(OPT) -Wall -g $(PCONFIG)
+CFLAGS=$(OPT) -Wall -g $(PCONFIG) -march=i386 -mtune=i386 -m32
 LDFLAGS=#-Xlinker -qmagic
 LIBS=$(DEVMAPPER)
 
@@ -359,6 +363,7 @@ dparam.s:	dparam.S
 
 lilo:		$(OBJS)
 		$(CC) -o lilo $(LDFLAGS) $(OBJS) $(LIBS)
+		$(STRIP) -s lilo
 
 lilo.static:	$(OBJS)
 		$(CC) -o lilo.static -static $(LDFLAGS) $(OBJS) $(LIBS)

@@ -1,0 +1,37 @@
+#!/bin/sh
+# This program version was patched for the use with BG-Rescue Linux and
+# to be compiled against uClibc 0.9.31 using gcc-4.2.1.
+#
+# Statically linking is used. Stripping is done with "sstrip".
+#
+# The Makefile, configure and building system has been patched to optimize 
+# for size ("-Os -s") and to produce i386 binaries.
+#
+# The installation process has been redirected to /opt/RESCUE/*PROGRAMNAME*
+
+DEBIAN_DIFF=""
+
+[[ -f "$DEBIAN_DIFF" ]] && 
+! [[ -f "$DEBIAN_DIFF.APPLIED" ]] && 
+touch "$DEBIAN_DIFF.APPLIED" &&
+echo "Applying patch $DEBIAN_DIFF" &&
+{ :
+! [[ `basename "$DEBIAN_DIFF" .diff` == "$DEBIAN_DIFF" ]] && cat "$DEBIAN_DIFF" | patch -p1 
+! [[ `basename "$DEBIAN_DIFF" .patch` == "$DEBIAN_DIFF" ]] && cat "$DEBIAN_DIFF" | patch -p1 
+! [[ `basename "$DEBIAN_DIFF" .tar` == "$DEBIAN_DIFF" ]] && tar -xvf "$DEBIAN_DIFF"
+
+if [[ -e debian/patches/00list ]]; 
+    then cat debian/patches/00list | awk '{print "cat ./debian/patches/" $0 "* | patch -p1" }' | sh 
+    elif [[ -e debian/patches/series ]]; 
+        then cat debian/patches/series | awk '{print "cat ./debian/patches/" $0 "* | patch -p1" }' | sh 
+        else for PATCH in `ls -1 debian/patches/*.patch debian/patches/*.diff debian/patches/*.dpatch 2>/dev/null`; do cat $PATCH | patch -p1; done 
+fi }
+
+make alles &&
+sstrip lilo lilo.static &&
+echo "Complete..." &&
+#echo -e "\nnow run:\tmake install-strip\n"
+#echo -e "\nnow run:\tsstrip  lilo\n" &&
+echo -e "\nnow run:\tcp  lilo.static  <<DESTINATION>>\n"
+#echo -e "\nnow run:\tBGRESCUE.INSTALL\n"
+#echo -e "Then run:\t sstrip /opt/RESCUE/<<PROGNAME>>/*bin/*\n"
