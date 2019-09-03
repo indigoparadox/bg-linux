@@ -1,0 +1,337 @@
+Version 2.0  -  2011/01/01
+===========
+
+Since there were maior feature upgrades since version 1.0 I release the new
+version as BG-Tiny Linux Bootdisk 2.0. The changes since the last public
+release are:
+
+
+Updated the Linux kernel and dosfstools to the latest versions and added
+support for the filesystem cramfs and for the loopback device.
+
+Added plip support to be able to transfer data over a parallel-port Laplink
+cable. This makes is possible to use BG-Tiny Linux Bootdisk to install
+either an old windows version or a linux-2.4 Debian Linux version (eg Woody
+or Lenny) on an old 4MB-RAM computer which does not have or has an
+unsupported cdrom-drive.
+
+There is free ram of 1168kb and the total amount of free ram 
+(free low ram + buffers + cached) is now 1556kb on a machine with
+4MB of total ram.
+
+
+Added oneit_lite 1.0
+
+Updated dosfstools to 3.0.11
+Updated linux kernel to 2.4.37.11
+
+Removed toybox 0.1.0
+
+
+Released Floppy Version.
+Please report bugs to BG-TLB@Giannone.de
+
+
+Version 1.1
+===========
+
+Updated the Linux kernel and dosfstools to the latest versions.
+
+Added support for the filesystem cramfs and for the loopback device which
+both can proove usefull when you want to decompress a Linux-2.4 Debian initrd
+to a spare partition to do a manual install.
+
+Added plip support to be able to transfer data over a parallel-port Laplink
+cable. This makes is possible to use BG-Tiny Linux Bootdisk to install
+either an old windows version or a linux-2.4 Debian Linux version (eg Woody
+or Lenny) on an old 4MB-RAM computer which does not have or has an
+unsupported cdrom-drive.
+
+Added the script /sbin/network to set up the loopback network and to explain
+how to setup plip-network an how to transfer data using netcat. 
+
+BG-Tiny Linux Bootdisk is now a full install tool for old computers with 4MB
+of ram. To perform an eg Windows95 installation on a computer without a
+cdrom drive you are able to: fdisk, format (mkdosfs/mkfs.fat32), make bootable
+(ms-sys), copy the installation files over parallel-link network (nc/plip) and
+finally to reboot and install the system.
+
+To perform a Linux-2.4 Debian GNU/Linux (eg Woody or Lenny) installation on
+a computer without a cdrom drive you are able to: fdisk, create 
+spare/swap/root partitions, format (mke2fs/mkswap), make bootable (lilo),
+copy the installation files over network (nc,plip), extract the initrd into
+the spare disk (cramfs/loop) and finally to reboot and install the system.
+
+Using oneit_lite instead of the oneit from toybox. This saves 9kb of
+diskspace and some ram. UPXed lilo, this saves 92kb of disk space.
+
+All this modifications of course cost some ram and we have less free ram
+than with BG-Tiny Linux Bootdisk 1.0. But compared to the 0.x versions we
+still have much more ram left. The free ram is 1168kb and the total amount of
+free ram (free low ram + buffers + cached) is now 1556kb on a machine with
+4MB of total ram.
+
+
+Included the following new kernel drivers: cramfs, parport. plip.
+
+Included the following new busybox applets: ifconfig, losetup.
+
+
+Added oneit_lite 1.0
+
+Updated dosfstools to 3.0.11
+Updated linux kernel to 2.4.37.11
+
+Removed toybox 0.1.0
+
+
+This version was never released.
+
+
+Version 1.0  -  2010/11/29
+===========
+
+Released Version 0.9.1 as 1.0 without further changes. The changes since the
+last public release are:
+
+
+Recompiled and updated the whole system to be a little more up to date. All
+binaries are statically against uClibc 0.9.27. The system should still run
+on an i386 (no FPU) with as little as 4MB of RAM.
+
+Updated the linux kernel 2.4, dosfstools and ms-sys to the most recent
+versions. Integrated some of the BG-Rescue Linux patches. 
+
+Changed the init structure to use less memory and therefore included oneit
+from Toybox.
+
+Changed the keymap script a little to be more selfexplaining and to
+automatically delete the keymaps also in cases of failure or if the default
+keymap is used. Added swiss keyboard layouts.
+
+After booting there are 1560kb of free ram on a machine with 4MB ram.
+
+
+Added toybox 0.1.0
+
+Updated dosfstools to 3.0.10
+Updated linux kernel to 2.4.37.10
+Updated ms-sys to 2.2.0
+
+Readded busybox 1.3.2
+Readded gpart 0.1h
+Readded lilo 22.8
+
+
+Released Floppy Version.
+Please report bugs to BG-TLB@Giannone.de
+
+
+Version 0.9.1
+=============
+
+Recompiled the whole system and linked it statically against uClibc 0.9.27.
+Now the system should run again on an i386 with as little as 4MB of RAM.
+
+Readded busybox 1.3.2
+Readded dosfstools 3.0.10
+Readded gpart 0.1h
+Readded lilo 22.8
+Readded ms-sys 2.2.0
+Readded toybox 0.1.0
+
+
+This version was never released.
+
+
+Version 0.9
+===========
+
+Recompiled and updated the whole system to a little more up to date. For the
+moment linked all programs statically against uClibc 0.9.31. This has to
+change again because this library in the used configuration needs at least
+an i486 and our goal ist clearly to support i386 (even SX).
+
+Updated the linux kernel 2.4, dosfstools and ms-sys to the most recent
+versions. Integrated some of the BG-Rescue Linux patches. 
+
+Changed the init structure to use less memory and therefore included oneit
+from Toybox.
+
+Changed the keymap script a little to be more selfexplaining and to
+automatically delete the keymaps also in cases of failure or if the default
+keymap is used. Added swiss keyboard layouts.
+
+
+Added toybox 0.1.0
+
+Updated dosfstools to 3.0.10
+Updated linux kernel to 2.4.37.10
+Updated ms-sys to 2.2.0
+
+Readded busybox 1.3.2
+Readded gpart 0.1h
+Readded lilo 22.8
+
+
+This version was never released.
+
+
+Version 0.8  -  2008/05/04
+===========
+
+Updated the Linux kernel to 2.4.36.3.
+
+Removed the devfsd applet from busybox since it is not needed any more.
+
+Removed the init applet from busybox and compiled an extra busybox
+containing only init and halt/poweroff/reboot. This saves a lot of ram since
+not all busybox code has to be kept in ram when running init. It uses more
+disk space but there is still some left...
+
+When compared to version 0.7 the total amount of free ram (free low ram +
+buffers + cached) is now 844kb instead 772kb on a machine with 4 MB of ram.
+This is an improvement of free RAM of 72kb!
+
+Released Floppy Version.
+Please report bugs to BG-TLB@Giannone.de
+
+
+Version 0.7  -  2008/04/27
+===========
+
+UPXed the kernel with "--all-methods --all-filters --best". This saves some
+more kilobytes of diskspace.
+
+Recompiled busybox and linked it staticly against uClibc 0.9.27. This saves
+some more kilobytes of diskspace. Activated the askfirst feature to start
+shells on additional terminals only when needed. This saves quite a lot of
+ram.
+
+Recompiled the whole system and linked it staticly against uClibc 0.9.27.
+This saves some more kilobytes of diskspace and makes further developement
+easier.
+
+Recompiled busybox and added the unzip applet.
+
+When compared to version 0.6 the total amount of free ram (free low ram +
+buffers + cached) is now 772kb instead 672kb on a machine with 4 MB of ram.
+This is an improvement of free RAM of 100kb!
+
+Released Floppy Version.
+Please report bugs to BG-TLB@Giannone.de
+
+
+Version 0.6  -  2008/04/20
+===========
+
+Compressed the linux kernel with upx. Even if I wanted to avoid upx this is
+still a good idea because this will not affect the system once booted. And
+the system still boots happily with 4MB RAM. There is exactly the same
+amount of free ram like before. And there is a little more disk space.
+
+Added ms-sys 2.1.3 (statically linked).
+
+Since partition tools like fdisk and the e2fsprogs are included into busybox
+and we include separately dosfsprogs, gpart and ms-sys we now have a pretty
+complete rescue system for computers with very low ram.
+
+Supported filesystems are ext2, ext3, iso9660 and vfat.
+
+The system should boot on any 386 (fpu not neccessary) with at least 4 MB RAM.
+
+Released the first Floppy Version.
+Please report bugs to BG-TLB@Giannone.de
+
+
+Version 0.5
+===========
+
+Added a little welcome message to the beginning of the boot process. So the
+user knows what system he is starting...
+
+Added dosfsprogs 2.11-2.3 with debian patches (statically linked).
+Added gpart 0.1h-4.1 with debian patches (statically linked).
+
+Recompiled lilo 22.8 and removed some unneeded config options:
+-DEVMS -DREISERFS -DVIRTUAL -DDEVMAPPER
+
+This version was never released.
+
+
+Version 0.4
+===========
+
+Added linux kernel 2.4.36.2 with the patches from BG-Rescue Linux.
+
+Added a little kernel patch to make it possible to boot without user
+interaction. This would be needed normally because when one uses /dev/fd0 as
+root device the kernel change_floppy mechanism is activated.
+
+Added /sbin/help a little utility to list the available programs. This is a
+good idea because there are no bisybox symlinks to save space. So one would
+assume that there are almost no programs included.
+
+Added many new keyboard layouts for the user to choose one at boot time. The
+used ones are the familiar ones from BG-Rescue Linux. This does not waste
+much space and is very comfortable. At least it does not use additional ram.
+
+This version was never released.
+
+
+Version 0.3
+===========
+
+Changed the bootloader to extlinux a version of syslinux which is suited to
+boot from an ext2 file system.
+
+Added the vfat filesystem along with the needed codepages for accessing
+dos/windows filesystems.
+
+Removed serial port support.
+Removed devfs support.
+
+Using an old style static /dev directory again. This saves quite a lot of
+ram. Unfortunatelly it uses space on the floppy but fortunatelly not too
+much ;-) ...
+
+This version was never released.
+
+
+Version 0.2
+===========
+
+Addes some new busybox applets: loadkmap, devfsd.
+Switched the logging modes to silent.
+
+Not using devfsd because it needs too much ram. The goal is to use only 4 MB
+of RAM for the whole system.
+
+Updated the scripts in etc and some symlinks in /sbin and /bin. The system
+is more comfortable now.
+
+Using german keymap.
+
+This version was never released.
+
+
+Version 0.1
+===========
+
+This is the initial release of BG-TinyLinuxBootdisk (BG-TLB) my fork of Tiny
+Linux Bootdisk (TLB). The functionality should now be almost the same. 
+
+BG-TLB is a very small rescue linux system which runs from one single floppy
+disk without using a ramdisk. So it can run on systems with *very little*
+ram. The negative part is that you can't remove the floppy disk.
+
+The advantage is that we use a newer busybox version and static linking.
+Therefore we can save much space and achive the same functionality without
+compressing with UPX on a single 1.4MB floppy disk. And we have some free
+space left for cool things.
+
+Included the following programs:
+busybox 1.3.2 (statically linked akainst uClibc 0.9.24)
+lilo 22.8 with some tlb patches (statically linked akainst uClibc 0.9.24)
+
+This version was never released.
