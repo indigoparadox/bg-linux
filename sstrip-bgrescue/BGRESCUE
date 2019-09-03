@@ -1,0 +1,30 @@
+#!/bin/sh
+# This program version was patched for the use with BG-Rescue Linux and
+# to be compiled against uClibc 0.9.31 using gcc-4.2.1.
+#
+# The Makefile, configure and building system has been patched to optimize 
+# for size ("-Os -s") and to produce i386 binaries. Program binaries and 
+# libraries are stripped with "strip -s".
+#
+# You will be given opportunity to strip the binaries with "sstrip".
+#
+# The installation process has been redirected to /opt/RESCUE/*PROGRAMNAME*
+
+DEBIAN_DIFF=""
+
+[[ -f "$DEBIAN_DIFF" ]] && 
+! [[ -f "$DEBIAN_DIFF.APPLIED" ]] && 
+touch "$DEBIAN_DIFF.APPLIED" &&
+echo "Applying patch $DEBIAN_DIFF" &&
+{ cat "$DEBIAN_DIFF" | patch -p1 
+for PATCH in `ls -1 debian/patches/*.patch debian/patches/*.diff debian/patches/*.dpatch 2>/dev/null`; do
+cat $PATCH | patch -p1
+done }
+
+make &&
+echo "Complete..." &&
+#echo -e "\nnow run:\tmake install-strip\n"
+#echo -e "\nnow run:\tsstrip  sstrip\n"
+echo -e "\nThen run:\tcp  sstrip  <<DESTINATION>>\n"
+#echo -e "\nnow run:\tBGRESCUE.INSTALL\n"
+#echo -e "Then run:\t sstrip /opt/RESCUE/<<PROGNAME>>/*bin/*\n"

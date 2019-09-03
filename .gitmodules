@@ -16,3 +16,6 @@
 [submodule "uClibc-0.9.27"]
 	path = uClibc-0.9.27
 	url = https://github.com/indigoparadox/uClibc
+[submodule "linux-2.4.37.11"]
+	path = linux-2.4.37.11
+	url = https://github.com/indigoparadox/linux-2.4
