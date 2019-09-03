@@ -1,0 +1,18 @@
+[submodule "busybox-1.3.2"]
+	path = busybox-1.3.2
+	url = https://github.com/indigoparadox/busybox
+[submodule "dev86-0.16.17"]
+	path = dev86-0.16.17
+	url = https://github.com/indigoparadox/dev86
+[submodule "dosfstools-3.0.11"]
+	path = dosfstools-3.0.11
+	url = https://github.com/indigoparadox/dosfstools
+[submodule "gpart-0.1h"]
+	path = gpart-0.1h
+	url = https://github.com/indigoparadox/gpart
+[submodule "ms-sys-2.2.0"]
+	path = ms-sys-2.2.0
+	url = https://github.com/indigoparadox/ms-sys
+[submodule "uClibc-0.9.27"]
+	path = uClibc-0.9.27
+	url = https://github.com/indigoparadox/uClibc
