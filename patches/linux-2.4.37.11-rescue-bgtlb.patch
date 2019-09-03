@@ -1,0 +1,28 @@
+diff -urN linux-2.4.37.11-rescue/drivers/block/loop.c linux-2.4.37.11-rescue-bgtlb//drivers/block/loop.c
+--- linux-2.4.37.11-rescue/drivers/block/loop.c	2011-01-01 18:16:05.612217057 +0100
++++ linux-2.4.37.11-rescue-bgtlb//drivers/block/loop.c	2011-01-01 18:17:34.023215531 +0100
+@@ -78,7 +78,8 @@
+ 
+ #define MAJOR_NR LOOP_MAJOR
+ 
+-static int max_loop = 256;
++//static int max_loop = 256;
++static int max_loop = 8;
+ static struct loop_device *loop_dev;
+ static int *loop_sizes;
+ static int *loop_blksizes;
+diff -urN linux-2.4.37.11-rescue/init/do_mounts.c linux-2.4.37.11-rescue-bgtlb//init/do_mounts.c
+--- linux-2.4.37.11-rescue/init/do_mounts.c	2011-01-01 18:16:05.612217057 +0100
++++ linux-2.4.37.11-rescue-bgtlb//init/do_mounts.c	2011-01-01 18:16:48.571215526 +0100
+@@ -791,8 +791,9 @@
+ 				ROOT_DEV = MKDEV(RAMDISK_MAJOR, 1);
+ 				create_dev("/dev/root", ROOT_DEV, NULL);
+ 			}
+-		} else
+-			change_floppy("root floppy");
++		}
++//		} else
++//			change_floppy("root floppy");
+ 	}
+ #endif
+ 	mount_block_root("/dev/root", root_mountflags);
